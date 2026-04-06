@@ -153,7 +153,7 @@ function SpringMassAnimation({ displacement }) {
   const restMassX = 218;
   const massX = restMassX + clamped * pxPerMeter;
   const massY = 78;
-  const springStartX = anchorX + 14;
+  const springStartX = anchorX;
   const springEndX = massX;
   const springY = massY + massHeight / 2;
   const springLength = Math.max(42, springEndX - springStartX);
@@ -189,9 +189,11 @@ function SpringMassAnimation({ displacement }) {
           <polyline points={pts.join(" ")} className="spring" fill="none" />
 
           <line x1="48" y1="62" x2={pistonLeft} y2="62" className="damper-line" />
+          <line x1={anchorX + 2} y1="62" x2="48" y2="62" className="damper-line" />
           <rect x={pistonLeft} y="50" width={bodyWidth} height="24" rx="4" className="damper-body" />
           <line x1={pistonLeft + 14} y1="39" x2={pistonLeft + 14} y2="85" className="damper-line" />
           <line x1={pistonLeft + bodyWidth} y1="62" x2={pistonRight} y2="62" className="damper-line" />
+          <line x1={pistonRight} y1="62" x2={massX} y2="62" className="damper-line" />
 
           <rect x={massX} y={massY} width={massWidth} height={massHeight} rx="10" className="mass" />
           <text x={massX + massWidth / 2} y={massY + 38} textAnchor="middle" className="mass-label">m</text>
@@ -267,7 +269,7 @@ export default function App() {
             <div className="fields">
               <RangeInput label="Mass, m" value={m} setValue={setM} min={0.1} max={20} step={0.1} unit="kg" />
               <RangeInput label="Stiffness, k" value={k} setValue={setK} min={1} max={500} step={1} unit="N/m" />
-              <RangeInput label="Damping, c" value={c} setValue={setC} min={0} max={100} step={0.1} unit="N·s/m" />
+              <RangeInput label="Damping, c" value={c} setValue={setC} min={0} max={20} step={0.05} unit="N·s/m" />
               <NumberInput label="Initial displacement, x₀" value={x0} setValue={setX0} min={-5} max={5} step={0.1} unit="m" />
               <NumberInput label="Initial velocity, v₀" value={v0} setValue={setV0} min={-10} max={10} step={0.1} unit="m/s" />
               <RangeInput label="Duration" value={duration} setValue={setDuration} min={2} max={30} step={0.5} unit="s" />
