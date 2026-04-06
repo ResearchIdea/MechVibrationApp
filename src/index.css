@@ -260,3 +260,21 @@ input[type="range"] {
     grid-template-columns: 1fr;
   }
 }
+
+
+.wall-link {
+  stroke: #64748b;
+  stroke-width: 3;
+}
+
+.mass-connector {
+  stroke: #475569;
+  stroke-width: 2.5;
+}
+
+.spring {
+  stroke: #2563eb;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
