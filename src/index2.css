@@ -91,12 +91,14 @@ button {
   padding: 6px 10px;
   border-radius: 999px;
   background: #e2e8f0;
+  color: #0f172a;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .fields {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .field {
@@ -105,10 +107,32 @@ button {
   font-size: 0.95rem;
 }
 
+.field > span {
+  color: #334155;
+  font-weight: 500;
+}
+
+.field-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.field-top span {
+  color: #334155;
+  font-weight: 500;
+}
+
+.field-top strong {
+  color: #0f172a;
+  font-size: 0.92rem;
+}
+
 .field-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .field input[type="number"] {
@@ -122,6 +146,14 @@ button {
 .field small {
   color: #64748b;
   white-space: nowrap;
+  min-width: 52px;
+  text-align: right;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #2563eb;
+  cursor: pointer;
 }
 
 .chart-wrap {
@@ -148,8 +180,8 @@ button {
   font-size: 0.95rem;
 }
 
-.timebox input[type="range"] {
-  width: 100%;
+.timebox-top span {
+  color: #475569;
 }
 
 .stats {
@@ -162,6 +194,15 @@ button {
   justify-content: space-between;
   gap: 16px;
   font-size: 0.95rem;
+}
+
+.stats span {
+  color: #334155;
+}
+
+.stats strong {
+  color: #0f172a;
+  text-align: right;
 }
 
 .muted {
@@ -194,6 +235,114 @@ button {
   border-top: 1px solid #cbd5e1;
   padding-top: 10px;
   margin-top: 4px;
+}
+
+/* Animation */
+.animation-card {
+  overflow: hidden;
+}
+
+.animation-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(220px, 0.65fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.animation-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+  background:
+    linear-gradient(to bottom, #f8fafc 0%, #f8fafc 72%, #eef2f7 72%, #eef2f7 100%);
+}
+
+.wall {
+  fill: #94a3b8;
+}
+
+.wall-hatch {
+  stroke: #64748b;
+  stroke-width: 2;
+}
+
+.ground {
+  stroke: #94a3b8;
+  stroke-width: 3;
+}
+
+.spring {
+  stroke: #2563eb;
+  stroke-width: 3.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.damper {
+  stroke: #475569;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.damper-body {
+  fill: #cbd5e1;
+  stroke: #64748b;
+  stroke-width: 2;
+}
+
+.mass {
+  fill: #0f172a;
+  stroke: #334155;
+  stroke-width: 2;
+}
+
+.mass-label {
+  fill: white;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.axis-line {
+  stroke: #64748b;
+  stroke-width: 2;
+}
+
+.axis-text {
+  fill: #475569;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.animation-stats {
+  display: grid;
+  gap: 12px;
+}
+
+.animation-stats > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  font-size: 0.94rem;
+}
+
+.animation-stats span {
+  color: #475569;
+}
+
+.animation-stats strong {
+  color: #0f172a;
+  text-align: right;
+}
+
+@media (max-width: 1100px) {
+  .animation-wrap {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 980px) {
