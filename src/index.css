@@ -1,0 +1,262 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* Layout */
+
+.page {
+  padding: 24px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero h1 {
+  margin: 0;
+}
+
+.hero p {
+  color: #475569;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+}
+
+.main {
+  display: grid;
+  gap: 24px;
+}
+
+.grid-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+/* Cards */
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Inputs */
+
+.fields {
+  display: grid;
+  gap: 14px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+}
+
+.field-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #2563eb;
+}
+
+/* Chart */
+
+.chart-wrap {
+  height: 420px;
+}
+
+.empty {
+  height: 420px;
+  display: grid;
+  place-items: center;
+  color: #64748b;
+}
+
+/* Time controls */
+
+.timebox {
+  margin-top: 12px;
+}
+
+.timebox-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.timebox-actions {
+  margin-bottom: 8px;
+}
+
+.play-button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.play-button:hover {
+  background: #f1f5f9;
+}
+
+/* Stats */
+
+.stats div {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Equations */
+
+.equations {
+  font-family: monospace;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 10px;
+  display: grid;
+  gap: 6px;
+}
+
+.eq-divider {
+  border-top: 1px solid #cbd5e1;
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+/* Animation */
+
+.animation-card {
+  overflow: hidden;
+}
+
+.animation-wrap {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.animation-svg {
+  width: 100%;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+/* Mechanical elements */
+
+.wall {
+  fill: #94a3b8;
+}
+
+.wall-hatch {
+  stroke: #64748b;
+  stroke-width: 2;
+}
+
+.ground {
+  stroke: #94a3b8;
+  stroke-width: 3;
+}
+
+.spring {
+  stroke: #2563eb;
+  stroke-width: 4;
+  fill: none;
+}
+
+.damper-line {
+  stroke: #475569;
+  stroke-width: 3;
+}
+
+.damper-body {
+  fill: #cbd5e1;
+  stroke: #64748b;
+}
+
+.mass {
+  fill: #2563eb;
+}
+
+.mass-label {
+  fill: white;
+  font-weight: bold;
+}
+
+.axis-line {
+  stroke: #64748b;
+}
+
+.axis-text {
+  font-size: 12px;
+  fill: #475569;
+}
+
+/* Animation stats */
+
+.animation-stats {
+  display: grid;
+  gap: 10px;
+}
+
+.animation-stats div {
+  display: flex;
+  justify-content: space-between;
+  background: #f1f5f9;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-two {
+    grid-template-columns: 1fr;
+  }
+
+  .animation-wrap {
+    grid-template-columns: 1fr;
+  }
+}
