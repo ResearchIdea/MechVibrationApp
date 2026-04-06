@@ -150,30 +150,31 @@ function SpringMassAnimation({ displacement }) {
   const anchorX = 52;
   const massWidth = 88;
   const massHeight = 62;
-  const restMassX = 218;
+  const restMassX = 240;
   const massX = restMassX + clamped * pxPerMeter;
   const massY = 78;
 
-  const springY = massY + 18;
-  const damperY = massY + massHeight - 16;
+  const springY = massY + 8;
+  const damperY = massY + massHeight - 8;
   const springStartX = anchorX;
   const springEndX = massX;
-  const springLength = Math.max(42, springEndX - springStartX);
-  const turns = 7;
+  const springLength = Math.max(70, springEndX - springStartX);
 
-  const pts = [`${springStartX},${springY}`];
-  for (let i = 1; i <= turns * 2; i++) {
-    const x = springStartX + (springLength * i) / (turns * 2 + 1);
-    const y = springY + (i % 2 === 0 ? -16 : 16);
-    pts.push(`${x},${y}`);
+  const waveCount = 8;
+  const amplitude = 14;
+  let springPath = `M ${springStartX} ${springY}`;
+  for (let i = 1; i <= waveCount * 2; i++) {
+    const x = springStartX + (springLength * i) / (waveCount * 2 + 1);
+    const y = springY + (i % 2 === 0 ? -amplitude : amplitude);
+    springPath += ` L ${x} ${y}`;
   }
-  pts.push(`${springEndX},${springY}`);
+  springPath += ` L ${springEndX} ${springY}`;
 
-  const pistonLeft = 86;
+  const pistonLeft = 98;
   const pistonRight = massX;
-  const bodyWidth = Math.max(34, pistonRight - pistonLeft - 22);
+  const bodyWidth = Math.max(42, pistonRight - pistonLeft - 28);
   const bodyRight = pistonLeft + bodyWidth;
-  const bodyCenterX = pistonLeft + 14;
+  const bodyCenterX = pistonLeft + 16;
 
   return (
     <section className="card animation-card">
@@ -184,7 +185,7 @@ function SpringMassAnimation({ displacement }) {
 
       <div className="animation-wrap">
         <svg
-          viewBox="0 0 420 210"
+          viewBox="0 0 440 220"
           className="animation-svg"
           role="img"
           aria-label="Mass spring dashpot system"
@@ -200,9 +201,10 @@ function SpringMassAnimation({ displacement }) {
               className="wall-hatch"
             />
           ))}
-          <line x1="26" y1="160" x2="390" y2="160" className="ground" />
+          <line x1="26" y1="160" x2="408" y2="160" className="ground" />
 
-          <polyline points={pts.join(" ")} className="spring" fill="none" />
+          <line x1={anchorX} y1={springY} x2={anchorX} y2={damperY} className="wall-link" />
+          <path d={springPath} className="spring" fill="none" />
 
           <line
             x1={anchorX}
@@ -283,7 +285,7 @@ function SpringMassAnimation({ displacement }) {
           <text x={restMassX + massWidth / 2 - 6} y="197" className="axis-text">
             0
           </text>
-          <text x={restMassX + 50} y="197" className="axis-text">
+          <text x={restMassX + 54} y="197" className="axis-text">
             x(t)
           </text>
         </svg>
@@ -350,8 +352,8 @@ export default function App() {
         <header className="hero">
           <h1>Mechanical Vibrations Study App</h1>
           <p>
-            Visualize the free response of a mass-spring-dashpot system and see how mass,
-            stiffness, damping, and initial conditions affect x(t).
+            Visualize the free response of a mass-spring-dashpot system and see how mass, stiffness, damping,
+            and initial conditions affect x(t).
           </p>
         </header>
 
@@ -423,7 +425,7 @@ export default function App() {
               )}
             </section>
 
-            <SpringMassAnimation displacement={selectedX ?? 0} />
+            <SpringMassAnimation displacement={selectedX ?? 0} x0={x0} />
 
             <div className="grid-two">
               <section className="card">
