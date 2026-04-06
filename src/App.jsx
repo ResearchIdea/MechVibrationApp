@@ -147,6 +147,7 @@ function RangeInput({ label, value, setValue, min, max, step, unit }) {
 function SpringMassAnimation({ displacement }) {
   const clamped = Math.max(-1.8, Math.min(1.8, displacement ?? 0));
   const pxPerMeter = 42;
+
   const anchorX = 52;
   const massWidth = 88;
   const massHeight = 62;
@@ -154,27 +155,28 @@ function SpringMassAnimation({ displacement }) {
   const massX = restMassX + clamped * pxPerMeter;
   const massY = 78;
 
-  const springY = massY + 8;
-  const damperY = massY + massHeight - 8;
+  const centerY = massY + massHeight / 2;
+  const springY = centerY - 20;
+  const damperY = centerY + 20;
+
   const springStartX = anchorX;
   const springEndX = massX;
   const springLength = Math.max(70, springEndX - springStartX);
 
-  const waveCount = 8;
-  const amplitude = 14;
+  const waveCount = 10;
+  const amplitude = 10;
   let springPath = `M ${springStartX} ${springY}`;
-  for (let i = 1; i <= waveCount * 2; i++) {
-    const x = springStartX + (springLength * i) / (waveCount * 2 + 1);
-    const y = springY + (i % 2 === 0 ? -amplitude : amplitude);
+  for (let i = 0; i <= waveCount; i++) {
+    const x = springStartX + (springLength * i) / waveCount;
+    const y = springY + amplitude * Math.sin((i / waveCount) * Math.PI * waveCount);
     springPath += ` L ${x} ${y}`;
   }
-  springPath += ` L ${springEndX} ${springY}`;
 
   const pistonLeft = 98;
   const pistonRight = massX;
   const bodyWidth = Math.max(42, pistonRight - pistonLeft - 28);
   const bodyRight = pistonLeft + bodyWidth;
-  const bodyCenterX = pistonLeft + 16;
+  const bodyCenterX = pistonLeft + bodyWidth / 2;
 
   return (
     <section className="card animation-card">
@@ -204,6 +206,7 @@ function SpringMassAnimation({ displacement }) {
           <line x1="26" y1="160" x2="408" y2="160" className="ground" />
 
           <line x1={anchorX} y1={springY} x2={anchorX} y2={damperY} className="wall-link" />
+
           <path d={springPath} className="spring" fill="none" />
 
           <line
@@ -352,8 +355,8 @@ export default function App() {
         <header className="hero">
           <h1>Mechanical Vibrations Study App</h1>
           <p>
-            Visualize the free response of a mass-spring-dashpot system and see how mass, stiffness, damping,
-            and initial conditions affect x(t).
+            Visualize the free response of a mass-spring-dashpot system and see how mass,
+            stiffness, damping, and initial conditions affect x(t).
           </p>
         </header>
 
@@ -425,7 +428,7 @@ export default function App() {
               )}
             </section>
 
-            <SpringMassAnimation displacement={selectedX ?? 0} x0={x0} />
+            <SpringMassAnimation displacement={selectedX ?? 0} />
 
             <div className="grid-two">
               <section className="card">
