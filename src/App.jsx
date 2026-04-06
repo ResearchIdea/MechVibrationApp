@@ -153,9 +153,11 @@ function SpringMassAnimation({ displacement }) {
   const restMassX = 218;
   const massX = restMassX + clamped * pxPerMeter;
   const massY = 78;
+
+  const springY = massY + 18;
+  const damperY = massY + massHeight - 16;
   const springStartX = anchorX;
   const springEndX = massX;
-  const springY = massY + massHeight / 2;
   const springLength = Math.max(42, springEndX - springStartX);
   const turns = 7;
 
@@ -169,7 +171,9 @@ function SpringMassAnimation({ displacement }) {
 
   const pistonLeft = 86;
   const pistonRight = massX;
-  const bodyWidth = Math.max(34, pistonRight - pistonLeft - 34);
+  const bodyWidth = Math.max(34, pistonRight - pistonLeft - 22);
+  const bodyRight = pistonLeft + bodyWidth;
+  const bodyCenterX = pistonLeft + 14;
 
   return (
     <section className="card animation-card">
@@ -179,36 +183,124 @@ function SpringMassAnimation({ displacement }) {
       </div>
 
       <div className="animation-wrap">
-        <svg viewBox="0 0 420 210" className="animation-svg" role="img" aria-label="Mass spring dashpot system">
+        <svg
+          viewBox="0 0 420 210"
+          className="animation-svg"
+          role="img"
+          aria-label="Mass spring dashpot system"
+        >
           <rect x="28" y="22" width="20" height="126" rx="2" className="wall" />
           {Array.from({ length: 9 }).map((_, i) => (
-            <line key={i} x1="28" y1={28 + i * 13} x2="10" y2={40 + i * 13} className="wall-hatch" />
+            <line
+              key={i}
+              x1="28"
+              y1={28 + i * 13}
+              x2="10"
+              y2={40 + i * 13}
+              className="wall-hatch"
+            />
           ))}
           <line x1="26" y1="160" x2="390" y2="160" className="ground" />
 
           <polyline points={pts.join(" ")} className="spring" fill="none" />
 
-          <line x1="48" y1="62" x2={pistonLeft} y2="62" className="damper-line" />
-          <line x1={anchorX + 2} y1="62" x2="48" y2="62" className="damper-line" />
-          <rect x={pistonLeft} y="50" width={bodyWidth} height="24" rx="4" className="damper-body" />
-          <line x1={pistonLeft + 14} y1="39" x2={pistonLeft + 14} y2="85" className="damper-line" />
-          <line x1={pistonLeft + bodyWidth} y1="62" x2={pistonRight} y2="62" className="damper-line" />
-          <line x1={pistonRight} y1="62" x2={massX} y2="62" className="damper-line" />
+          <line
+            x1={anchorX}
+            y1={damperY}
+            x2={pistonLeft}
+            y2={damperY}
+            className="damper-line"
+          />
+          <rect
+            x={pistonLeft}
+            y={damperY - 12}
+            width={bodyWidth}
+            height="24"
+            rx="4"
+            className="damper-body"
+          />
+          <line
+            x1={bodyCenterX}
+            y1={damperY - 22}
+            x2={bodyCenterX}
+            y2={damperY + 22}
+            className="damper-line"
+          />
+          <line
+            x1={bodyRight}
+            y1={damperY}
+            x2={massX}
+            y2={damperY}
+            className="damper-line"
+          />
 
-          <rect x={massX} y={massY} width={massWidth} height={massHeight} rx="10" className="mass" />
-          <text x={massX + massWidth / 2} y={massY + 38} textAnchor="middle" className="mass-label">m</text>
+          <line
+            x1={massX}
+            y1={springY}
+            x2={massX}
+            y2={damperY}
+            className="mass-connector"
+          />
 
-          <line x1={restMassX + massWidth / 2} y1="177" x2={massX + massWidth / 2} y2="177" className="axis-line" />
-          <line x1={restMassX + massWidth / 2} y1="171" x2={restMassX + massWidth / 2} y2="183" className="axis-line" />
-          <line x1={massX + massWidth / 2} y1="171" x2={massX + massWidth / 2} y2="183" className="axis-line" />
-          <text x={restMassX + massWidth / 2 - 6} y="197" className="axis-text">0</text>
-          <text x={massX + massWidth / 2 - 10} y="197" className="axis-text">x(t)</text>
+          <rect
+            x={massX}
+            y={massY}
+            width={massWidth}
+            height={massHeight}
+            rx="10"
+            className="mass"
+          />
+          <text
+            x={massX + massWidth / 2}
+            y={massY + 38}
+            textAnchor="middle"
+            className="mass-label"
+          >
+            m
+          </text>
+
+          <line
+            x1={restMassX + massWidth / 2}
+            y1="177"
+            x2={massX + massWidth / 2}
+            y2="177"
+            className="axis-line"
+          />
+          <line
+            x1={restMassX + massWidth / 2}
+            y1="171"
+            x2={restMassX + massWidth / 2}
+            y2="183"
+            className="axis-line"
+          />
+          <line
+            x1={massX + massWidth / 2}
+            y1="171"
+            x2={massX + massWidth / 2}
+            y2="183"
+            className="axis-line"
+          />
+          <text x={restMassX + massWidth / 2 - 6} y="197" className="axis-text">
+            0
+          </text>
+          <text x={restMassX + 50} y="197" className="axis-text">
+            x(t)
+          </text>
         </svg>
 
         <div className="animation-stats">
-          <div><span>Current displacement</span><strong>{fmt(displacement, 4)} m</strong></div>
-          <div><span>Direction</span><strong>{(displacement ?? 0) >= 0 ? "Extension" : "Compression"}</strong></div>
-          <div><span>What to watch</span><strong>Spring length and mass position</strong></div>
+          <div>
+            <span>Current displacement</span>
+            <strong>{fmt(displacement, 4)} m</strong>
+          </div>
+          <div>
+            <span>Direction</span>
+            <strong>{(displacement ?? 0) >= 0 ? "Extension" : "Compression"}</strong>
+          </div>
+          <div>
+            <span>What to watch</span>
+            <strong>Spring length and mass position</strong>
+          </div>
         </div>
       </div>
     </section>
@@ -258,8 +350,8 @@ export default function App() {
         <header className="hero">
           <h1>Mechanical Vibrations Study App</h1>
           <p>
-            Visualize the free response of a mass-spring-dashpot system and see how mass, stiffness, damping,
-            and initial conditions affect x(t).
+            Visualize the free response of a mass-spring-dashpot system and see how mass,
+            stiffness, damping, and initial conditions affect x(t).
           </p>
         </header>
 
@@ -331,7 +423,7 @@ export default function App() {
               )}
             </section>
 
-            <SpringMassAnimation displacement={selectedX ?? 0} x0={x0} />
+            <SpringMassAnimation displacement={selectedX ?? 0} />
 
             <div className="grid-two">
               <section className="card">
