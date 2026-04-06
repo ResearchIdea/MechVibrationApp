@@ -468,6 +468,9 @@ export default function App() {
           </div>
         </div>
       </div>
+      <footer className="footer">
+  Developed by <strong>Raúl Muñoz</strong>, University of Salamanca (Spain)
+</footer>
     </div>
   );
 }
